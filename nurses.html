@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Vamos</title>
+    <link rel="stylesheet" href="./lib/w3.css" />
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <!-- <h1>Vamos</h1> -->
+
+    <div class="w3-bar w3-white">
+      <span class="w3-xlarge" style="font-weight: 600; margin-top: 8px"
+        >VAMOS</span
+      >
+      <div class="w3-right">
+        <a class="w3-bar-item" href="#">Nurses</a>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="w3-card w3-white w3-padding w3-auto">
+      <h3>FIll form</h3>
+      <hr />
+      <form class="w3-row-padding w3-stretch">
+        <div class="w3-col l3">
+          <input
+            id="inpKey"
+            class="w3-input w3-border w3-round"
+            type="text"
+            placeholder="ID"
+          />
+        </div>
+        <div class="w3-col l3">
+          <input
+            id="inpValue"
+            class="w3-input w3-border w3-round"
+            type="text"
+            placeholder="Name"
+          />
+        </div>
+        <div class="w3-col l3">
+          <input
+            id="inpValue"
+            class="w3-input w3-border w3-round"
+            type="text"
+            placeholder="Contact"
+          />
+        </div>
+        <div class="w3-col l3">
+          <input
+            id="inpValue"
+            class="w3-input w3-border w3-round"
+            type="text"
+            placeholder="Email"
+          />
+        </div>
+        <div class="w3-col l3">
+          <label for="gender">Select Gender:</label>
+          <select name="gender" class="w3-input w3-border w3-round" id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="w3-col l3">
+          <br />
+          <button
+            type="button"
+            class="w3-button w3-blue w3-round"
+            id="btnInsert"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <br />
+      <br />
+    </div>
+  </body>
+  <script src="./index2.js"></script>
+</html>
