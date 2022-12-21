@@ -1,0 +1,48 @@
+    .part1 {
+        font-size: 40px;
+        font-style: initial;
+    }
+
+    .part2{
+        font-size: 40px;
+    }
+
+    .part3{
+        font-size: 40px;
+    }
+
+    .part4{
+        font-size: 40px;
+    }
+    .part5{
+        font-size: 40px;
+    }
+
+    .part6{
+        font-size: 40px;
+    }
+
+    h1 {
+        font-size: 60px;
+        font-weight: bolder;
+    }
+
+    .button {
+        padding: 7px;
+        height: 40px;
+    }
+
+    fieldset {
+        margin-bottom: 30px;
+    }
+
+    body {
+        font-size: 20px;
+        background: url(./healthcare-access-tw.jpg);
+    }
+    
+
+
+
+
+
