@@ -22,6 +22,7 @@
 
         <div class="form__input-group">
           <input
+            name="username"
             type="text"
             class="form__input"
             autofocus
@@ -33,12 +34,15 @@
           <input
             type="password"
             class="form__input"
+            name="password"
             autofocus
             placeholder="Password"
           />
         </div>
 
-        <button class="form__button" type="submit">Continue</button>
+        <button class="form__button" id="loginBtn" type="submit">
+          Continue
+        </button>
 
         <p class="form__text">
           <a href="#" class="form__link">Forgot your password</a>
@@ -107,6 +111,9 @@
         </p>
       </form>
       <script>
+        if (window.sessionStorage.vamosUser !== "") {
+          window.location.href = "./nurses.html";
+        }
         document
           .getElementById("linkcreateaccount")
           .addEventListener("click", () => {
@@ -162,6 +169,30 @@
               (this.email = email);
           }
         }
+
+        document.getElementById("loginBtn").addEventListener("click", (e) => {
+          e.preventDefault();
+          let username = document.forms["login"]["username"].value;
+          let password = document.forms["login"]["password"].value;
+          if (username == "" || password == "") {
+            alert("please fill in all the fields");
+            return;
+          }
+          let qusers = JSON.parse(window.localStorage.getItem("users"));
+          let filteredUser = qusers.filter((quser) => quser.email == username);
+          if (filteredUser.length > 0) {
+            if (filteredUser[0].password == password) {
+              window.sessionStorage.setItem("vamosUser", username);
+              window.sessionStorage.setItem("vamosPassword", password);
+              alert("logged in, redirecting...");
+              window.location.href = "./nurses.html";
+            } else {
+              alert("incorrect password");
+            }
+          } else {
+            alert("this username was not found");
+          }
+        });
       </script>
     </div>
   </body>
