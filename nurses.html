@@ -25,10 +25,10 @@
     <div class="w3-card w3-white w3-padding w3-auto">
       <h3>FIll form</h3>
       <hr />
-      <form class="w3-row-padding w3-stretch">
+      <form id="frmNurses" class="w3-row-padding w3-stretch">
         <div class="w3-col l3">
           <input
-            id="inpKey"
+            id="nurseID"
             class="w3-input w3-border w3-round"
             type="text"
             placeholder="ID"
@@ -36,7 +36,7 @@
         </div>
         <div class="w3-col l3">
           <input
-            id="inpValue"
+            id="nurseName"
             class="w3-input w3-border w3-round"
             type="text"
             placeholder="Name"
@@ -44,7 +44,7 @@
         </div>
         <div class="w3-col l3">
           <input
-            id="inpValue"
+            id="nurseContact"
             class="w3-input w3-border w3-round"
             type="text"
             placeholder="Contact"
@@ -52,7 +52,7 @@
         </div>
         <div class="w3-col l3">
           <input
-            id="inpValue"
+            id="nurseEmail"
             class="w3-input w3-border w3-round"
             type="text"
             placeholder="Email"
@@ -60,7 +60,11 @@
         </div>
         <div class="w3-col l3">
           <label for="gender">Select Gender:</label>
-          <select name="gender" class="w3-input w3-border w3-round" id="gender">
+          <select
+            name="nurseGender"
+            class="w3-input w3-border w3-round"
+            id="gender"
+          >
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -79,6 +83,115 @@
       <br />
       <br />
     </div>
+    <br />
+    <div class="w3-card w3-white w3-padding w3-auto">
+      <table class="w3-table w3-bordered" id="NurseRecords">
+        <caption>
+          NURSE DATA
+        </caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>email</th>
+            <th>Gender</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="nurseData"></tbody>
+      </table>
+    </div>
   </body>
-  <script src="./index2.js"></script>
+  <script>
+    class Nurse {
+      constructor(nurseId, nurseName, nurseContact, nurseEmail, nurseGender) {
+        this.nurseId = nurseId;
+        this.nurseEmail = nurseEmail;
+        this.nurseName = nurseName;
+        this.nurseContact = nurseContact;
+        this.nurseGender = nurseGender;
+      }
+
+      validateNurse() {
+        if (
+          this.nurseId == "" ||
+          this.nurseEmail == "" ||
+          this.nurseName == "" ||
+          this.nurseContact == "" ||
+          this.nurseGender == ""
+        ) {
+          alert("please fill in all the fields");
+          return;
+        } else {
+          let nurses = JSON.parse(window.localStorage.getItem("nurses"));
+          if (nurses == null) {
+            nurses = [];
+            nurses.push(this);
+            nurses = JSON.stringify(nurses);
+            window.localStorage.setItem("nurses", nurses);
+          } else {
+            if (
+              nurses.filter((nurse) => nurse.nurseId == this.nurseId).length > 0
+            ) {
+              alert("Nurse with this ID exists");
+              return;
+            }
+            nurses.push(this);
+            nurses = JSON.stringify(nurses);
+            window.localStorage.setItem("nurses", nurses);
+          }
+          alert("nurse records added successfully");
+        }
+      }
+    }
+
+    document.getElementById("btnInsert").addEventListener("click", (e) => {
+      e.preventDefault();
+      let nurses = document.forms["frmNurses"];
+      let nurseID = nurses["nurseID"].value;
+      let nurseName = nurses["nurseName"].value;
+      let nurseContact = nurses["nurseContact"].value;
+      let nurseGender = nurses["nurseGender"].value;
+      let nurseEmail = nurses["nurseEmail"].value;
+      nurse = new Nurse(
+        nurseID,
+        nurseName,
+        nurseContact,
+        nurseEmail,
+        nurseGender
+      );
+      nurse.validateNurse();
+      window.location.reload();
+    });
+
+    let records = JSON.parse(window.localStorage.getItem("nurses"));
+
+    console.log(records);
+    records.forEach((record) => {
+      var tr = document.createElement("tr");
+      var id = document.createElement("td");
+      var nurseName = document.createElement("td");
+      var nurseEmail = document.createElement("td");
+      var nurseContact = document.createElement("td");
+      var nurseGender = document.createElement("td");
+      var action = document.createElement("td");
+
+      id.innerHTML = record.nurseId;
+      nurseName.innerHTML = record.nurseName;
+      nurseEmail.innerHTML = record.nurseEmail;
+      nurseContact.innerHTML = record.nurseContact;
+      nurseGender.innerHTML = record.nurseGender;
+      action.innerHTML = `<button class='w3-button w3-red w3-round w3-small'>Delete</button>`;
+
+      tr.appendChild(id);
+      tr.appendChild(nurseName);
+      tr.appendChild(nurseEmail);
+      tr.appendChild(nurseContact);
+      tr.appendChild(nurseGender);
+      tr.appendChild(action);
+      var tbody = document.getElementById("nurseData");
+      tbody.appendChild(tr);
+    });
+  </script>
 </html>
